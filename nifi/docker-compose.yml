@@ -1,0 +1,35 @@
+services:
+  nifi:
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=guilherme.bigois
+      - SINGLE_USER_CREDENTIALS_PASSWORD=${APP_SECRET:?APP_SECRET must be set}
+      - TZ=America/Sao_Paulo
+    image: apache/nifi
+    container_name: nifi
+    ports:
+      - "8443:8443"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.95"
+          memory: 4G
+    restart: unless-stopped
+    volumes:
+      - ./data/jdbc:/opt/nifi/nifi-current/jdbc
+      - ./data/logs:/opt/nifi/nifi-current/logs
+      # - nifi-conf:/opt/nifi/nifi-current/conf
+      - ./data/conf:/opt/nifi/nifi-current/conf
+      - ./data/state:/opt/nifi/nifi-current/state
+      - ./data/content:/opt/nifi/nifi-current/content_repository
+      - ./data/database:/opt/nifi/nifi-current/database_repository
+      - ./data/flowfile:/opt/nifi/nifi-current/flowfile_repository
+      - ./data/provenance:/opt/nifi/nifi-current/provenance_repository
+    networks:
+      - nifi-network
+
+# volumes:
+#   nifi-conf:
+
+networks:
+  nifi-network:
+    driver: bridge

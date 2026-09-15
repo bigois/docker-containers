@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: "master"
+      MYSQL_ROOT_PASSWORD: "${APP_SECRET:?APP_SECRET must be set}"
+      MYSQL_USER: "bigois"
+      MYSQL_PASSWORD: "${APP_SECRET:?APP_SECRET must be set}"
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - ./data:/var/lib/mysql

@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "bigois"
+      MONGO_INITDB_ROOT_PASSWORD: "${APP_SECRET:?APP_SECRET must be set}"
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - ./data:/data/db

@@ -1,0 +1,38 @@
+version: "3.8"
+
+# networks:
+#     postgres-network:
+#         driver: bridge
+
+services:
+  postgres:
+    image: postgres:15.3-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: "${APP_SECRET:?APP_SECRET must be set}"
+      POSTGRES_USER: "postgres"
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    # networks:
+    #   - postgres-network
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: pgadmin
+  #   restart: always
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: guilhermebigois@outlook.com
+  #     PGADMIN_DEFAULT_PASSWORD: '${APP_SECRET:?APP_SECRET must be set}'
+  #   ports:
+  #     - 8080:80
+  #   networks:
+  #     - postgres-network
+  #   volumes:
+  #     - ./data/pgadmin:/var/lib/pgadmin
