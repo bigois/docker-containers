@@ -87,3 +87,7 @@ docker compose up -d --build
 | Apache NiFi | 8443 | Uses the configured single-user credentials. |
 | Open WebUI | 3000 | Connects to Ollama at `host.docker.internal:11434`. |
 | DBAccess | 7890 | Built locally from the `dbaccess` directory. |
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/bigois/docker-containers/blob/main/LICENSE).
